@@ -1,0 +1,440 @@
++ COMMAND: echo ============================================================
+
+============================================
+        QMI IPv6 WAN STATUS - JETSON
+============================================
+WDM PORT       : /dev/cdc-wdm0
+WWAN           : wwan_airtel
+APN            : airtelgprs.com
+IPv6 ADDRESS   : 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7/64
+IPv6 GATEWAY   : 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9
+IPv6 DNS1      : 2401:4900:50:9::79a
+IPv6 DNS2      : 2401:4900:50:9::7a4
+IPv6 WDS CID   : 29
+
+
+
+============================================================
++ COMMAND: echo 'WORKING WWAN IPv6 REFERENCE CONFIGURATION'
+WORKING WWAN IPv6 REFERENCE CONFIGURATION
++ COMMAND: echo ============================================================
+============================================================
+++ COMMAND: date
++ COMMAND: echo 'Date        : Saturday 26 September 2026 05:04:38 PM IST'
+Date        : Saturday 26 September 2026 05:04:38 PM IST
+++ COMMAND: hostname
++ COMMAND: echo 'Hostname    : utm-desktop'
+Hostname    : utm-desktop
++ COMMAND: echo 'Interface   : wwan_airtel'
+Interface   : wwan_airtel
++ COMMAND: echo 'QMI Device  : /dev/cdc-wdm0'
+QMI Device  : /dev/cdc-wdm0
++ COMMAND: echo 'PC Source   : 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054'
+PC Source   : 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054
++ COMMAND: echo 'Jetson IPv6 : 2401:4900:c422:9254:3c76:3cf8:1803:4ab6'
+Jetson IPv6 : 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
++ COMMAND: echo 'Output File : working_wwan_ipv6_reference_20260926_170438.txt'
+Output File : working_wwan_ipv6_reference_20260926_170438.txt
++ COMMAND: echo ============================================================
+============================================================
++ COMMAND: echo
+
++ COMMAND: echo '===== 1. LINK DETAILS ====='
+===== 1. LINK DETAILS =====
++ COMMAND: ip -details link show dev wwan_airtel
+14: wwan_airtel: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 1000
+    link/none  promiscuity 0 minmtu 0 maxmtu 65535 addrgenmode random numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 parentbus usb parentdev 2-1.3:1.2 
++ COMMAND: echo
+
++ COMMAND: echo '===== 2. INTERFACE ADDRESSES ====='
+===== 2. INTERFACE ADDRESSES =====
++ COMMAND: ip addr show dev wwan_airtel
+14: wwan_airtel: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 1000
+    link/none 
+    inet 100.90.111.21/30 scope global wwan_airtel
+       valid_lft forever preferred_lft forever
+    inet6 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7/64 scope global 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::786c:7777:5289:6cae/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
++ COMMAND: echo
+
++ COMMAND: echo '===== 3. IPV6 ADDRESSES ====='
+===== 3. IPV6 ADDRESSES =====
++ COMMAND: ip -6 addr show dev wwan_airtel
+14: wwan_airtel: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 1000
+    inet6 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7/64 scope global 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::786c:7777:5289:6cae/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
++ COMMAND: echo
+
++ COMMAND: echo '===== 4. IPV6 ROUTES ON WWAN ====='
+===== 4. IPV6 ROUTES ON WWAN =====
++ COMMAND: ip -6 route show dev wwan_airtel
+2401:4900:c41a:7ba0::/64 metric 100 pref medium
+2401:4900:c41a:7ba0::/64 proto kernel metric 256 pref medium
+fe80::/64 proto kernel metric 256 pref medium
+default via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 metric 100 onlink pref medium
+default via fe80::c102:408b:41e4:8ba9 proto ra metric 1024 expires 64606sec hoplimit 64 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 5. ROUTES REFERENCING WWAN ====='
+===== 5. ROUTES REFERENCING WWAN =====
++ COMMAND: ip -6 route
++ COMMAND: grep wwan_airtel
+2401:4900:c41a:7ba0::/64 dev wwan_airtel metric 100 pref medium
+2401:4900:c41a:7ba0::/64 dev wwan_airtel proto kernel metric 256 pref medium
+fe80::/64 dev wwan_airtel proto kernel metric 256 pref medium
+default via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel metric 100 onlink pref medium
+default via fe80::c102:408b:41e4:8ba9 dev wwan_airtel proto ra metric 1024 expires 64606sec hoplimit 64 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 6. COMPLETE IPV6 ROUTING TABLE ====='
+===== 6. COMPLETE IPV6 ROUTING TABLE =====
++ COMMAND: ip -6 route show
+::1 dev lo proto kernel metric 256 pref medium
+2401:4900:c41a:7ba0::/64 dev wwan_airtel metric 100 pref medium
+2401:4900:c41a:7ba0::/64 dev wwan_airtel proto kernel metric 256 pref medium
+fe80::1 dev l4tbr0 proto kernel metric 256 linkdown pref medium
+fe80::/64 dev ztfl6hayl7 proto kernel metric 256 pref medium
+fe80::/64 dev wwan_airtel proto kernel metric 256 pref medium
+default via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel metric 100 onlink pref medium
+default via fe80::c102:408b:41e4:8ba9 dev wwan_airtel proto ra metric 1024 expires 64606sec hoplimit 64 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 7. IPV6 DEFAULT ROUTES ====='
+===== 7. IPV6 DEFAULT ROUTES =====
++ COMMAND: ip -6 route show default
+default via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel metric 100 onlink pref medium
+default via fe80::c102:408b:41e4:8ba9 dev wwan_airtel proto ra metric 1024 expires 64606sec hoplimit 64 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 8. IPV6 ROUTING RULES ====='
+===== 8. IPV6 ROUTING RULES =====
++ COMMAND: ip -6 rule show
+0:	from all lookup local
+32766:	from all lookup main
++ COMMAND: echo
+
++ COMMAND: echo '===== 9. ALL IPV6 ROUTING TABLES ====='
+===== 9. ALL IPV6 ROUTING TABLES =====
++ COMMAND: ip -6 route show table all
+::1 dev lo proto kernel metric 256 pref medium
+2401:4900:c41a:7ba0::/64 dev wwan_airtel metric 100 pref medium
+2401:4900:c41a:7ba0::/64 dev wwan_airtel proto kernel metric 256 pref medium
+fe80::1 dev l4tbr0 proto kernel metric 256 linkdown pref medium
+fe80::/64 dev ztfl6hayl7 proto kernel metric 256 pref medium
+fe80::/64 dev wwan_airtel proto kernel metric 256 pref medium
+default via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel metric 100 onlink pref medium
+default via fe80::c102:408b:41e4:8ba9 dev wwan_airtel proto ra metric 1024 expires 64606sec hoplimit 64 pref medium
+local ::1 dev lo table local proto kernel metric 0 pref medium
+local 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7 dev wwan_airtel table local proto kernel metric 0 pref medium
+local fe80::be:e7ff:fe76:a312 dev ztfl6hayl7 table local proto kernel metric 0 pref medium
+local fe80::786c:7777:5289:6cae dev wwan_airtel table local proto kernel metric 0 pref medium
+multicast ff00::/8 dev l4tbr0 table local proto kernel metric 256 linkdown pref medium
+multicast ff00::/8 dev ztfl6hayl7 table local proto kernel metric 256 pref medium
+multicast ff00::/8 dev wwan_airtel table local proto kernel metric 256 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 10. IPV6 NEIGHBOR TABLE ====='
+===== 10. IPV6 NEIGHBOR TABLE =====
++ COMMAND: ip -6 neigh show dev wwan_airtel
++ COMMAND: echo
+
++ COMMAND: echo '===== 11. IPV6 WWAN SYSCTL ====='
+===== 11. IPV6 WWAN SYSCTL =====
++ COMMAND: sysctl net.ipv6.conf.wwan_airtel
+net.ipv6.conf.wwan_airtel.accept_dad = 1
+net.ipv6.conf.wwan_airtel.accept_ra = 1
+net.ipv6.conf.wwan_airtel.accept_ra_defrtr = 1
+net.ipv6.conf.wwan_airtel.accept_ra_from_local = 0
+net.ipv6.conf.wwan_airtel.accept_ra_min_hop_limit = 1
+net.ipv6.conf.wwan_airtel.accept_ra_min_lft = 0
+net.ipv6.conf.wwan_airtel.accept_ra_mtu = 1
+net.ipv6.conf.wwan_airtel.accept_ra_pinfo = 1
+net.ipv6.conf.wwan_airtel.accept_redirects = 1
+net.ipv6.conf.wwan_airtel.accept_source_route = 0
+net.ipv6.conf.wwan_airtel.addr_gen_mode = 3
+net.ipv6.conf.wwan_airtel.autoconf = 1
+net.ipv6.conf.wwan_airtel.dad_transmits = 1
+net.ipv6.conf.wwan_airtel.disable_ipv6 = 0
+net.ipv6.conf.wwan_airtel.disable_policy = 0
+net.ipv6.conf.wwan_airtel.drop_unicast_in_l2_multicast = 0
+net.ipv6.conf.wwan_airtel.drop_unsolicited_na = 0
+net.ipv6.conf.wwan_airtel.enhanced_dad = 1
+net.ipv6.conf.wwan_airtel.force_mld_version = 0
+net.ipv6.conf.wwan_airtel.force_tllao = 0
+net.ipv6.conf.wwan_airtel.forwarding = 0
+net.ipv6.conf.wwan_airtel.hop_limit = 64
+net.ipv6.conf.wwan_airtel.ignore_routes_with_linkdown = 0
+net.ipv6.conf.wwan_airtel.ioam6_enabled = 0
+net.ipv6.conf.wwan_airtel.ioam6_id = 65535
+net.ipv6.conf.wwan_airtel.ioam6_id_wide = 4294967295
+net.ipv6.conf.wwan_airtel.keep_addr_on_down = 0
+net.ipv6.conf.wwan_airtel.max_addresses = 16
+net.ipv6.conf.wwan_airtel.max_desync_factor = 600
+net.ipv6.conf.wwan_airtel.mldv1_unsolicited_report_interval = 10000
+net.ipv6.conf.wwan_airtel.mldv2_unsolicited_report_interval = 1000
+net.ipv6.conf.wwan_airtel.mtu = 1500
+net.ipv6.conf.wwan_airtel.ndisc_notify = 0
+net.ipv6.conf.wwan_airtel.ndisc_tclass = 0
+net.ipv6.conf.wwan_airtel.proxy_ndp = 0
+net.ipv6.conf.wwan_airtel.ra_defrtr_metric = 1024
+net.ipv6.conf.wwan_airtel.regen_max_retry = 3
+net.ipv6.conf.wwan_airtel.router_solicitation_delay = 1
+net.ipv6.conf.wwan_airtel.router_solicitation_interval = 4
+net.ipv6.conf.wwan_airtel.router_solicitation_max_interval = 3600
+net.ipv6.conf.wwan_airtel.router_solicitations = -1
+net.ipv6.conf.wwan_airtel.rpl_seg_enabled = 0
+net.ipv6.conf.wwan_airtel.seg6_enabled = 0
+net.ipv6.conf.wwan_airtel.stable_secret = a366:2445:05de:425f:0122:205e:7dba:0f9a
+net.ipv6.conf.wwan_airtel.suppress_frag_ndisc = 1
+net.ipv6.conf.wwan_airtel.temp_prefered_lft = 86400
+net.ipv6.conf.wwan_airtel.temp_valid_lft = 604800
+net.ipv6.conf.wwan_airtel.use_oif_addrs_only = 0
+net.ipv6.conf.wwan_airtel.use_tempaddr = 2
++ COMMAND: echo
+
++ COMMAND: echo '===== 12. IMPORTANT IPV6 SETTINGS ====='
+===== 12. IMPORTANT IPV6 SETTINGS =====
++ COMMAND: sysctl net.ipv6.conf.wwan_airtel.accept_ra net.ipv6.conf.wwan_airtel.autoconf net.ipv6.conf.wwan_airtel.accept_ra_defrtr net.ipv6.conf.wwan_airtel.forwarding net.ipv6.conf.wwan_airtel.use_tempaddr net.ipv6.conf.wwan_airtel.addr_gen_mode net.ipv6.conf.wwan_airtel.disable_ipv6
+net.ipv6.conf.wwan_airtel.accept_ra = 1
+net.ipv6.conf.wwan_airtel.autoconf = 1
+net.ipv6.conf.wwan_airtel.accept_ra_defrtr = 1
+net.ipv6.conf.wwan_airtel.forwarding = 0
+net.ipv6.conf.wwan_airtel.use_tempaddr = 2
+net.ipv6.conf.wwan_airtel.addr_gen_mode = 3
+net.ipv6.conf.wwan_airtel.disable_ipv6 = 0
++ COMMAND: echo
+
++ COMMAND: echo '===== 13. ROUTE TO JETSON ====='
+===== 13. ROUTE TO JETSON =====
++ COMMAND: ip -6 route get 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
+2401:4900:c422:9254:3c76:3cf8:1803:4ab6 from :: via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel src 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7 metric 100 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 14. ROUTE TO JETSON WITH WORKING PC SOURCE ====='
+===== 14. ROUTE TO JETSON WITH WORKING PC SOURCE =====
++ COMMAND: ip -6 route get 2401:4900:c422:9254:3c76:3cf8:1803:4ab6 from 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 oif wwan_airtel
+2401:4900:c422:9254:3c76:3cf8:1803:4ab6 from 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel src 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7 metric 100 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 15. ROUTE TO IPV6 INTERNET ====='
+===== 15. ROUTE TO IPV6 INTERNET =====
++ COMMAND: ip -6 route get 2001:4860:4860::8888 oif wwan_airtel
+2001:4860:4860::8888 from :: via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel src 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7 metric 100 pref medium
++ COMMAND: echo
+
++ COMMAND: echo '===== 16. QMI CURRENT SETTINGS ====='
+===== 16. QMI CURRENT SETTINGS =====
++ COMMAND: sudo qmicli -p -d /dev/cdc-wdm0 --wds-get-current-settings
+[/dev/cdc-wdm0] Current settings retrieved:
+           IP Family: IPv4
+        IPv4 address: 100.90.111.21
+    IPv4 subnet mask: 255.255.255.252
+IPv4 gateway address: 100.90.111.22
+    IPv4 primary DNS: 117.96.122.200
+  IPv4 secondary DNS: 117.96.122.186
+                 MTU: 1500
+             Domains: none
++ COMMAND: echo
+
++ COMMAND: echo '===== 17. QMI PACKET SERVICE STATUS ====='
+===== 17. QMI PACKET SERVICE STATUS =====
++ COMMAND: sudo qmicli -p -d /dev/cdc-wdm0 --wds-get-packet-service-status
+[/dev/cdc-wdm0] Connection status: 'connected'
++ COMMAND: echo
+
++ COMMAND: echo '===== 18. QMI DATA FORMAT ====='
+===== 18. QMI DATA FORMAT =====
++ COMMAND: sudo qmicli -p -d /dev/cdc-wdm0 --wda-get-data-format
+[/dev/cdc-wdm0] Successfully got data format
+                   QoS flow header: no
+               Link layer protocol: 'raw-ip'
+  Uplink data aggregation protocol: 'disabled'
+Downlink data aggregation protocol: 'disabled'
+                     NDP signature: '0'
+Downlink data aggregation max datagrams: '0'
+Downlink data aggregation max size: '0'
++ COMMAND: echo
+
++ COMMAND: echo '===== 19. QMI MODEM MODEL ====='
+===== 19. QMI MODEM MODEL =====
++ COMMAND: sudo qmicli -p -d /dev/cdc-wdm0 --dms-get-model
+[/dev/cdc-wdm0] Device model retrieved:
+	Model: 'FN990A28'
++ COMMAND: echo
+
++ COMMAND: echo '===== 20. QMI MODEM REVISION ====='
+===== 20. QMI MODEM REVISION =====
++ COMMAND: sudo qmicli -p -d /dev/cdc-wdm0 --dms-get-revision
+[/dev/cdc-wdm0] Device revision retrieved:
+	Revision: 'M0R.100006'
++ COMMAND: echo
+
++ COMMAND: echo '===== 21. IPV6 IPTABLES ====='
+===== 21. IPV6 IPTABLES =====
++ COMMAND: sudo ip6tables -L -n -v
+Chain INPUT (policy ACCEPT 5594 packets, 1902K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 89005 packets, 16M bytes)
+ pkts bytes target     prot opt in     out     source               destination         
++ COMMAND: echo
+
++ COMMAND: echo '===== 22. NFTABLES ====='
+===== 22. NFTABLES =====
++ COMMAND: sudo nft list ruleset
++ COMMAND: echo
+
++ COMMAND: echo '===== 23. NETWORKMANAGER DEVICE STATUS ====='
+===== 23. NETWORKMANAGER DEVICE STATUS =====
++ COMMAND: nmcli device status
+DEVICE      TYPE      STATE                   CONNECTION 
+l4tbr0      bridge    connected (externally)  l4tbr0     
+ztfl6hayl7  tun       connected (externally)  ztfl6hayl7 
+enP1p1s0    ethernet  unavailable             --         
+enP8p1s0    ethernet  unavailable             --         
+can0        can       unmanaged               --         
+usb0        ethernet  unmanaged               --         
+usb1        ethernet  unmanaged               --         
+lo          loopback  unmanaged               --         
++ COMMAND: echo
+
++ COMMAND: echo '===== 24. NETWORKMANAGER WWAN DETAILS ====='
+===== 24. NETWORKMANAGER WWAN DETAILS =====
++ COMMAND: nmcli device show wwan_airtel
++ COMMAND: true
++ COMMAND: echo
+
++ COMMAND: echo '===== 25. DNS / RESOLVED ====='
+===== 25. DNS / RESOLVED =====
++ COMMAND: resolvectl status wwan_airtel
+Link 14 (wwan_airtel)
+    Current Scopes: DNS
+         Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+Current DNS Server: 2401:4900:50:9::79a
+       DNS Servers: 2401:4900:50:9::79a 2401:4900:50:9::7a4
+        DNS Domain: ~.
++ COMMAND: echo
+
++ COMMAND: echo '===== 26. PING JETSON - EXPLICIT WORKING SOURCE ====='
+===== 26. PING JETSON - EXPLICIT WORKING SOURCE =====
++ COMMAND: echo 'Source      : 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054'
+Source      : 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054
++ COMMAND: echo 'Destination : 2401:4900:c422:9254:3c76:3cf8:1803:4ab6'
+Destination : 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
++ COMMAND: echo 'Interface   : wwan_airtel'
+Interface   : wwan_airtel
+++ COMMAND: date
++ COMMAND: echo 'Timestamp   : Saturday 26 September 2026 05:04:39 PM IST'
+Timestamp   : Saturday 26 September 2026 05:04:39 PM IST
++ COMMAND: ping -6 -I 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 -c 10 -W 5 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
+ping: bind icmp socket: Cannot assign requested address
++ COMMAND: echo
+
++ COMMAND: echo '===== 27. PING JETSON - FORCED WWAN INTERFACE ====='
+===== 27. PING JETSON - FORCED WWAN INTERFACE =====
++ COMMAND: ping -6 -I wwan_airtel -c 10 -W 5 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
+PING 2401:4900:c422:9254:3c76:3cf8:1803:4ab6(2401:4900:c422:9254:3c76:3cf8:1803:4ab6) from 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7 wwan_airtel: 56 data bytes
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=1 ttl=63 time=81.7 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=2 ttl=63 time=92.0 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=3 ttl=63 time=44.0 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=4 ttl=63 time=77.8 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=5 ttl=63 time=81.0 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=6 ttl=63 time=46.2 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=7 ttl=63 time=38.3 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=8 ttl=63 time=71.8 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=9 ttl=63 time=115 ms
+64 bytes from 2401:4900:c422:9254:3c76:3cf8:1803:4ab6: icmp_seq=10 ttl=63 time=68.7 ms
+
+--- 2401:4900:c422:9254:3c76:3cf8:1803:4ab6 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9014ms
+rtt min/avg/max/mdev = 38.288/71.626/114.788/22.437 ms
++ COMMAND: echo
+
++ COMMAND: echo '===== 28. PING IPV6 INTERNET ====='
+===== 28. PING IPV6 INTERNET =====
++ COMMAND: ping -6 -I wwan_airtel -c 10 -W 5 2001:4860:4860::8888
+PING 2001:4860:4860::8888(2001:4860:4860::8888) from 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7 wwan_airtel: 56 data bytes
+64 bytes from 2001:4860:4860::8888: icmp_seq=1 ttl=118 time=22.3 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=2 ttl=118 time=36.3 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=3 ttl=118 time=32.0 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=4 ttl=118 time=17.8 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=5 ttl=118 time=49.2 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=6 ttl=118 time=27.5 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=7 ttl=118 time=25.8 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=8 ttl=118 time=31.7 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=9 ttl=118 time=21.8 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=10 ttl=118 time=31.6 ms
+
+--- 2001:4860:4860::8888 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9015ms
+rtt min/avg/max/mdev = 17.754/29.599/49.202/8.469 ms
++ COMMAND: echo
+
++ COMMAND: echo '===== 29. WWAN INTERFACE STATISTICS ====='
+===== 29. WWAN INTERFACE STATISTICS =====
++ COMMAND: ip -s link show dev wwan_airtel
+14: wwan_airtel: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 1000
+    link/none 
+    RX:  bytes packets errors dropped  missed   mcast           
+      42263415   42304    512       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+      39615127  250526      0       0       0       0 
++ COMMAND: echo
+
++ COMMAND: echo '===== 30. SEPARATE VERIFIED PING RECORD ====='
+===== 30. SEPARATE VERIFIED PING RECORD =====
++ COMMAND: echo ============================================================
++ COMMAND: echo 'WORKING PC -> JETSON IPv6 PING RECORD'
++ COMMAND: echo ============================================================
++ COMMAND: tee working_wwan_ipv6_ping_20260926_170438.txt
+++ COMMAND: date
+============================================================
+WORKING PC -> JETSON IPv6 PING RECORD
+============================================================
++ COMMAND: echo 'Timestamp   : Saturday 26 September 2026 05:04:57 PM IST'
+Timestamp   : Saturday 26 September 2026 05:04:57 PM IST
++ COMMAND: echo 'Interface   : wwan_airtel'
++ COMMAND: echo 'Source IPv6 : 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054'
++ COMMAND: echo 'Destination : 2401:4900:c422:9254:3c76:3cf8:1803:4ab6'
++ COMMAND: echo
+Interface   : wwan_airtel
+Source IPv6 : 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054
+Destination : 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
+
++ COMMAND: echo COMMAND:
+COMMAND:
++ COMMAND: echo 'ip -6 route get 2401:4900:c422:9254:3c76:3cf8:1803:4ab6 from 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 oif wwan_airtel'
+ip -6 route get 2401:4900:c422:9254:3c76:3cf8:1803:4ab6 from 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 oif wwan_airtel
++ COMMAND: echo
++ COMMAND: echo RESULT:
+
+RESULT:
++ COMMAND: ip -6 route get 2401:4900:c422:9254:3c76:3cf8:1803:4ab6 from 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 oif wwan_airtel
+2401:4900:c422:9254:3c76:3cf8:1803:4ab6 from 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 via 2401:4900:c41a:7ba0:c102:408b:41e4:8ba9 dev wwan_airtel src 2401:4900:c41a:7ba0:9dfb:f66f:3618:3cd7 metric 100 pref medium
++ COMMAND: echo
+
++ COMMAND: echo COMMAND:
+COMMAND:
++ COMMAND: echo 'ping -6 -I 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 -c 10 -W 5 2401:4900:c422:9254:3c76:3cf8:1803:4ab6'
+ping -6 -I 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 -c 10 -W 5 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
++ COMMAND: echo
++ COMMAND: echo RESULT:
+
+RESULT:
++ COMMAND: ping -6 -I 2401:4900:c41a:7ba0:b9e7:d2e0:3a2e:e054 -c 10 -W 5 2401:4900:c422:9254:3c76:3cf8:1803:4ab6
+ping: bind icmp socket: Cannot assign requested address
++ COMMAND: set +x
+
+============================================================
+REFERENCE COLLECTION COMPLETE
+============================================================
+Reference file : /home/utm/Downloads/working_wwan_ipv6_reference_20260926_170438.txt
+Ping record    : /home/utm/Downloads/working_wwan_ipv6_ping_20260926_170438.txt
+============================================================
